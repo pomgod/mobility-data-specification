@@ -13,7 +13,7 @@ This specification contains a collection of RESTful APIs used to specify the dig
 * [Vehicles](#vehicles)
 * [Vehicle - Register](#vehicle---register)
 * [Vehicle - Event](#vehicle---event)
-* [Vehicles - Update Telemetry](#vehicles---update-telemetry)
+* [Vehicles - Update Telemetry](#vehicles---telemetry)
 * [Service Areas](#service-areas)
 * [Vehicle Events](#vehicle-events)
 * [Telemetry Data](#telemetry-data)
@@ -181,7 +181,10 @@ Body Params:
 
 ## Vehicles - Telemetry
 
-The vehicle `/telemetry` endpoint allows a Provider to send vehicle telemetry data in a batch for any number of vehicles in the fleet. Telemetry data will be reported to the API every 5 seconds for each vehicle in motion.
+The vehicle `/telemetry` endpoint allows a Provider to send vehicle telemetry data in a batch for any number of vehicles in the fleet.
+
+The Update Telemetry endpoint (/telemetry) shall be called for the specific trip within 24 hrs after the vehicle trip is over.   
+For any given trip, data reported via the (/telemetry) endpoint shall contain temporal and location data for every 300 ft (91 meters) while vehicle is in motion and 30 seconds while at rest. For Mobility Service Providers who do not calculate distance in real-time, a periodic rate of 14 seconds can be used while vehicle is in motion.
 
 Endpoint: `/vehicles/telemetry`
 Method: `POST`
@@ -194,14 +197,18 @@ Body Params:
 
 201 Success Response:
 
-_No content returned on success._
+| Field     | Type                           | Field Description                                                                                       |
+| --------- | ------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `result`  | String                         | Responds with number of successfully written telemetry data points and total number of provided points. |
+| `failures | [Telemetry](#telemetry-data)[] | Array of failed telemetry for zero or more vehicles (empty if all successful).                          |
 
 400 Failure Response:
 
-| `error`         | `error_description`              | `error_details`[]               |
-| --------------- | -------------------------------- | ------------------------------- |
-| `bad_param`     | A validation error occurred.     | Array of parameters with errors |
-| `missing_param` | A required parameter is missing. | Array of missing parameters     |
+| `error`         | `error_description`                  | `error_details`[]               |
+| --------------- | ------------------------------------ | ------------------------------- |
+| `bad_param`     | A validation error occurred.         | Array of parameters with errors |
+| `invalid_data`  | None of the provided data was valid. |                                 |
+| `missing_param` | A required parameter is missing.     | Array of missing parameters     |
 
 ## Service Areas
 
@@ -252,7 +259,7 @@ List of valid vehicle events and the resulting vehicle status if the event is su
 | `trip_enter`         |                                                         | Customer enters the municipal area managed by agency during an active trip.                        | `removed`, `elsewhere`                             | `trip`              |                                                                         |
 | `trip_leave`         |                                                         | Customer leaves the municipal area managed by agency during an active trip.                        | `trip`                                             | `elsewhere`         |                                                                         |
 | `trip_end`           |                                                         | Customer ends trip and reservation                                                             | `trip`                                             | `available`         |                                                                         |
-| `deregister`         | `missing`                                               | A vehicle is deregistered                                                                      | `available`, `unavailable`, `removed`, `elsewhere` | `inactive`          | A vehicle is deactivated from the fleet.                                |
+| `deregister`         | `missing`, `decommissioned`                             | A vehicle is deregistered                                                                      | `available`, `unavailable`, `removed`, `elsewhere` | `inactive`          | A vehicle is deactivated from the fleet.                                |
 
 The diagram below shows the expected events and related `status` transitions for a vehicle:
 ![Event State Diagram](images/MDS_agency_event_state.png?raw=true "MDS Event State Diagram")
