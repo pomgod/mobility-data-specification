@@ -344,10 +344,10 @@ GET /audit/trips/{audit_trip_id}
   audit_subject_id: string,
   provider_id: UUID,
   provider_name: string,
-  provider_vehicle_id: string
-  provider_device_id: UUID | null
-  timestamp: Timestamp
-  recorded: Timestamp
+  provider_vehicle_id: string,
+  provider_device_id: UUID | null,
+  timestamp: Timestamp,
+  recorded: Timestamp,
   events: {
     audit_trip_id: UUID,
     audit_event_id: UUID,
@@ -364,19 +364,19 @@ GET /audit/trips/{audit_trip_id}
     altitude: number,
     charge: number,
     recorded: Timestamp
-  }[]
+  }[],
   provider: {
     device: {
-      device_id: UUID
-      provider_id: UUID
-      vehicle_id: string
-      type: string
-      propulsion: string[]
-      year: number | null
-      mfgr: string | null
-      model: string | null
+      device_id: UUID,
+      provider_id: UUID,
+      vehicle_id: string,
+      type: string,
+      propulsion: string[],
+      year: number | null,
+      mfgr: string | null,
+      model: string | null,
       recorded: Timestamp
-    }
+    },
     events: {
       device_id: UUID,
       provider_id: UUID,
@@ -389,7 +389,7 @@ GET /audit/trips/{audit_trip_id}
       altitude: number,
       charge: number,
       recorded: Timestamp
-    }[]
+    }[],
     telemetry: {
       device_id: UUID,
       provider_id: UUID,
