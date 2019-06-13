@@ -107,7 +107,7 @@ Note that the provider-scope is at present not included.  A Provider should not 
 | `rule_type`  | enum     | R   | Type of policy (see [“rule types”](#rule-types))|
 | `rule_units` | enum     | O   | Measured units of policy (see [“rule units”](#rule-units))|
 | `geographies`| UUID[]   | R   | List of Geography UUIDs (non-overlapping) specifying the covered geography |
-| `statuses`   | Status[] | R   | Vehicle `status` to which this rule applies.  See [MDS Agency state diagram](https://github.com/CityOfLosAngeles/mobility-data-specification/blob/dev/agency/README.md#vehicle-events). |
+| `statuses`   | { Status: Vehicle Event[] } | R   | Vehicle `statuses` to which this rule applies. Optionally, you may provide specific `event_type`'s for the rule to apply to as a subset of a given status, providing an empty list defaults to "all".  See [MDS Agency state diagram](https://github.com/CityOfLosAngeles/mobility-data-specification/blob/dev/agency/README.md#vehicle-events). |
 | `vehicle_types` | VehicleType[] | O | Applicable vehicle categories, default “all”.  See MDS shared data types document.  (link forthcoming) |
 | `minimum`    | integer | O | Minimum value, if applicable (default 0) |
 | `maximum`    | integer | O | Maximum value, if applicable (default unlimited) |
