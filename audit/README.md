@@ -356,7 +356,7 @@ GET /audit/trips/{audit_trip_id}
     audit_subject_id: string,
     note: string,
     timestamp: Timestamp,
-    lat: Timestamp,
+    lat: number,
     lng: number,
     speed: number,
     heading: number,
