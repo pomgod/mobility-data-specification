@@ -356,51 +356,53 @@ GET /audit/trips/{audit_trip_id}
     audit_subject_id: string,
     note: string,
     timestamp: Timestamp,
-    lat: number,
-    lng: number,
-    speed: number,
-    heading: number,
-    accuracy: number,
-    altitude: number,
-    charge: number,
+    gps: {
+      lat: float,
+      lng: float,
+      speed: float,
+      heading: float,
+      accuracy: float,
+      altitude: float
+    },
+    charge: float,
     recorded: Timestamp
   }[],
-  provider: {
+  provider: null | {
     device: {
       device_id: UUID,
       provider_id: UUID,
       vehicle_id: string,
       type: string,
       propulsion: string[],
-      year: number | null,
-      mfgr: string | null,
-      model: string | null,
+      year: number,
+      mfgr: string,
+      model: string,
       recorded: Timestamp
     },
     events: {
       device_id: UUID,
       provider_id: UUID,
       timestamp: Timestamp,
-      lat: number,
-      lng: number,
-      speed: number,
-      heading: number,
-      accuracy: number,
-      altitude: number,
-      charge: number,
-      recorded: Timestamp
+      event_type: enum,
+      event_type_reason: string,
+      telemetry_timestamp: Timestamp,
+      trip_id: UUID,
+      service_area_id: UUID,
+      recorded: Timestamp,
     }[],
     telemetry: {
       device_id: UUID,
       provider_id: UUID,
       timestamp: Timestamp,
-      lat: number,
-      lng: number,
-      speed: number,
-      heading: number,
-      accuracy: number,
-      altitude: number,
-      charge: number,
+      gps: {
+        lat: float,
+        lng: float,
+        speed: float,
+        heading: float,
+        accuracy: float,
+        altitude: float
+      },
+      charge: float,
       recorded: Timestamp
     }[]
   }
