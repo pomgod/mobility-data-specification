@@ -123,7 +123,7 @@ Note that the provider-scope is at present not included.  A Provider should not 
 Rules are ordered most-specific to most-general.  E.g. an “earlier” cap rule would take precedence over a “later” cap rule.  The internal mechanics of ordering are up to the Policy editing and hosting software.
 
 #### Rule Ordering
-Rules, being in a list, are implicitly ordered according to the JSON Specification. In a sense, rules are a very specific form of pattern matching; you specify the conditions for which a given rule is 'met', and a vehicle (or series of vehicles) may match with that specific rule. If a vehicle is matched with a rule, then it _will not_ be considered in the subsequent evaluation of rules within a given policy. This allows for 
+Rules, being in a list, are implicitly ordered according to the JSON Specification. Rules are a very specific form of pattern matching; you specify the conditions for which a given rule is 'met', and a vehicle (or series of vehicles) may match with that specific rule. If a vehicle is matched with a rule, then it _will not_ be considered in the subsequent evaluation of rules within a given policy. This allows for expressing complex policies, such as a layer of 'valid' geographies in an earlier rule, with overarching 'invalid' geographies in later rules: see [LADOT Venice Beach Special Operations Example](./Examples.md#venice-beach-spec-ops)
 
 ##### Evaluation Pseudocode
 The below example is intended to highlight the catching mechanisms of rule evaluation, and should not be considered a fully-fledged pseudocode representation of how to evaluate a policy.
