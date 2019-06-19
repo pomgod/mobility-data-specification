@@ -6,6 +6,8 @@
 
 <a name="venice-beach-spec-ops"></a>
 
+#### Raw Policy JSON
+
 ```
 {
   "name": "Venice Special Operations Zone",
@@ -75,6 +77,22 @@
   ]
 }
 ```
+
+#### Walkthrough
+
+##### Abstract
+
+The Venice Special Operations Zone Restrictions published by LADOT !FIXME NEED LINK! specifies a series of valid drop off points within a greater overarching no-dropoff zone.
+
+##### Policy Design Approach
+
+The Venice Special Operations Zone Policy consists of two rules, first, a rule which contains geographies representing the 'valid' `provider_drop_off` zones, and a second rule which has the overarching Venice geography. During the evaluation of the policy, a set of vehicles will be provided, we'll refer to this set as `V`. The first rule will match all vehicles which have been `provider_drop_off`'d within one of the given geographies, let's call this group of vehicles `v_1`. When evaluating the second rule, the vehicles which will be considered in the evaluation will be a subset `V \ v_1`. At this point, we are considering a subset which cannot have a vehicle in a valid drop off zone for this policy; and because of this, all vehicles that match with the second rule will be considered in violation of the policy.
+
+##### Side-notes
+
+This is a very good example of a case where a `rule` is used for pattern matching, and a vehicle (or group of vehicles) being matched with a particular rule should not necessarily result in upstream consequences (fines, warnings, etc...).
+
+### Venice Beach No-Fly Zone
 
 ```
 {
