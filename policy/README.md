@@ -2,8 +2,11 @@
 
 This specification contains a collection of RESTful APIs used to specify the digital relationship between *mobility as a service* Providers and the Agencies that regulate them.
 
+(TODO: generate schema: Max Neil)
+(TODO: preferred pick up / preferred drop off example)
+
 * Authors: LADOT
-* Date: 15 May 2019
+* Date: 03 June 2019
 * Version: alpha
 
 ## Table of Contents
@@ -33,20 +36,21 @@ The goal of this specification is to enable Agencies to create, revise, and publ
 
 * City-wide and localized caps (e.g. “Minimum 500 and maximum 3000 scooters within city boundaries”)
 * Exclusion zones (e.g. “No scooters are permitted in this district on weekends”)
+* Incentive zones (TODO Max)
 * Cap allowances (e.g. “Up to 500 additional scooters are permitted near train stations”)
 * Speed-limit restrictions (e.g. “15 mph outside of downtown, 10 mph downtown”)
 * Idle-time and disabled-time limitations (e.g. “5 days idle while rentable, 12 hours idle while unrentable, per device”)
 
 A machine-readable format will allow Providers to download policies and compute compliance for policies where it can be determined entirely by data obtained internally.  Providers can then continually measure their own compliance against policies without further API calls.
 
-References to geography (areas, street segments, etc.) will be done via UUID.  Geographic data will be available as GeoJSON via the `/geographies` endpoint.  In a future revision of Agency, we will reconcile this with the existing `/service_areas` endpoint.  `/service_areas` currently only handles GeoJSON MultiPolygon and Polygon objects, and Policies might refer to street segments or points.  
+Geographical data will be stored as immutable GeoJSON and read from `/geographies` endpoint, referenced by UUID.  In a future revision of Agency, we will deprecate the existing `/service_areas` endpoint.  `/service_areas` currently only handles GeoJSON MultiPolygon and Polygon objects, and Policy documents might prefer Points for locations such as drop-zones.  Using `/geographies` is intended to reduce external dependencies and cross-domain security issues.  Policy may be used for a variety of enforcement actions, so it's important for the Agency to persist and keep immutable both Policy and Geography data.
 
 This initial draft proposes a subset of possible policies for consideration, and should not be taken to be the a comprehensive enumeration of all possible policies.
 
 <a name="distribution"></a>
 ## Distribution
 
-Policies may be published by Agencies or their authorized delegates via JSON objects via REST API.
+Policies may be published by Agencies or their authorized delegates via JSON objects via REST API.  (TODO wording around flat-files). Serving Provider-specific policies will require authentication.
 
 Each policy will have a unique ID (UUID).
 
@@ -57,7 +61,9 @@ Policies should be stored and accessible indefinitely so that the set of active 
 Policies will typically be linked to one or more associated geographies.  Geography descriptions (e.g. geofences or lists of street segments) must also be maintained by the Agency indefinitely.  Policies without specific geographies (global policies) are assumed to apply to the entire service area managed by the Agency.
 
 Policies should be re-fetched whenever (a) a Policy expires (via its `end_date`), or (b) at an interval specified by the Agency, e.g. "daily at midnight".
+Rules will be linked to one or more associated geographies.  Geography descriptions (e.g. geofences or lists of street segments) must also be maintained by the Agency indefinitely.  
 
+Policies should be re-fetched whenever (a) a Policy expires (via its `end_date`), or (b) at an interval specified by the Agency, e.g. "daily at midnight".
 
 <a name="schema"></a>
 ## Schema
@@ -69,13 +75,15 @@ Policies should be re-fetched whenever (a) a Policy expires (via its `end_date`)
 | ---             | ---       | --- | --- |
 | `name`          | String    | R   | Name of policy |
 | `policy_id`     | UUID      | R   | Unique ID of policy |
+| `provider_ids`  | UUID[]    | O   | Providers for whom this policy is applicable (null or absent implies all Providers) |
 | `description`   | String    | R   | Description of policy |
 | `start_date`    | timestamp | R   | Beginning date/time of policy enforcement |
 | `end_date`      | timestamp | O   | End date/time of policy enforcement |
 | `prev_policies` | UUID[]    | O   | Unique IDs of prior policies replaced by this one |
 | `rules`         | Rule[]    | R   | List of applicable rule elements (see [“rule fields”](#rule-fields)) |
 
-Note that the provider-scope is at present not included.  A Provider should not be able to tell whether the policy is specific to them, or to a subset of Provider, or all Providers.
+If the Agency decides that Provider-specific Policy documents should not be shared with other Providers, e.g.
+punative Policy in response to violations, it will need to filter Policy objects before serving them via this endpoint.
 
 <a name="rule-types"></a>
 ### Rule Types 
@@ -101,22 +109,21 @@ Note that the provider-scope is at present not included.  A Provider should not 
 <a name="rule-fields"></a>
 ### Rule Fields 
 
-| Name         | Type     | R/O | Description      |
-| ---          | ---      | --- | ---              |
-| `name`       | String   | R   | Name of cap item |
-| `rule_id`    | UUID     | R   | Unique ID of rule |
-| `rule_type`  | enum     | R   | Type of policy (see [“rule types”](#rule-types))|
-| `rule_units` | enum     | O   | Measured units of policy (see [“rule units”](#rule-units))|
-| `geographies`| UUID[]   | R   | List of Geography UUIDs (non-overlapping) specifying the covered geography |
-| `statuses`   | Status[] | R   | Vehicle `status` to which this rule applies.  See [MDS Agency state diagram](https://github.com/CityOfLosAngeles/mobility-data-specification/blob/dev/agency/README.md#vehicle-events). |
-| `vehicle_types` | VehicleType[] | O | Applicable vehicle categories, default “all”.  See MDS shared data types document.  (link forthcoming) |
-| `minimum`    | integer | O | Minimum value, if applicable (default 0) |
-| `maximum`    | integer | O | Maximum value, if applicable (default unlimited) |
-| `start_time` | time    | O | Beginning time-of-day (hh:mm:ss) when the rule is in effect (default 00:00:00) |
-| `end_time`   | time    | O | Ending time-of-day (hh:mm:ss) when the rule is in effect (default 23:59:59) |
-| `days`       | day[]   | O | Days `["sun", "mon", "tue", "wed", "thu", "fri", "sat"]` when the rule is in effect (default all) |
-| `messages`   | { string:string } | O | Message to rider user, if desired, in various languages, keyed by language tag (see [Messages](#messages))|
-| `value_url ` | URL     | O | URL to an API endpoint that can provide dynamic information for the measured value (see [Value URL](#value-url)) |
+| Name            | Type              | R/O | Description |
+| ---             | ---               | --- | --- |
+| `name`          | String            | R   | Name of rule item |
+| `rule_type`     | enum              | R   | Type of rule (see [“rule types”](#rule-types))|
+| `rule_units`    | enum              | O   | Measured units of policy (see [“rule units”](#rule-units))|
+| `geographies`   | UUID[]            | R   | List of Geography UUIDs (non-overlapping) specifying the covered geography |
+| `statuses`      | Status[]          | R   | Vehicle `status` to which this rule applies.  See [MDS Agency state diagram](../agency/README.md#vehicle-events). |
+| `vehicle_types` | VehicleType[]     | O   | Applicable vehicle categories, default “all”.  See MDS shared data types document.  (link forthcoming) |
+| `minimum`       | integer           | O   | Minimum value, if applicable (default 0) |
+| `maximum`       | integer           | O   | Maximum value, if applicable (default unlimited) |
+| `start_time`    | time              | O   | Beginning time-of-day (hh:mm) when the rule is in effect (default 00:00) |
+| `end_time`      | time              | O   | Ending time-of-day (hh:mm) when the rule is in effect (default 23:59) |
+| `days`          | day[]             | O   | Days `["sun", "mon", "tue", "wed", "thu", "fri", "sat"]` when the rule is in effect (default all) |
+| `messages`      | { string:string } | O   | Message to rider user, if desired, in various languages, keyed by language tag (see [Messages](#messages))|
+| `value_url `    | URL               | O   | URL to an API endpoint that can provide dynamic information for the measured value (see [Value URL](#value-url)) |
 
 ### Order of Operations
 
@@ -175,8 +182,6 @@ The payload returned from a GET call to the `value_url` will have the following 
 | `value`      | integer   | R   | Value of whatever the rule measures |
 | `timestamp`  | timestamp | R   | Timestamp the value was recorded |
 | `policy_id`  | UUID      | R   | Relevant `policy_id` for reference |
-
-MDS will likely include some sort of streaming mechanism in the upcoming releases that may supplant or replace this mechanism.
 
 <a name="endpoints"></a>
 ## Endpoints
