@@ -112,6 +112,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
       ],
       "statuses": {
         "available": [],
+        "unavailable": [],
         "reserved": [],
         "trip": []
       },
@@ -133,6 +134,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
+  "provider_ids": ['2411d395-04f2-47c9-ab66-d09e9e3c3251'],
   "rules": [
     {
       "name": "SFV DACs",
