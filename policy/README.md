@@ -109,21 +109,21 @@ punative Policy in response to violations, it will need to filter Policy objects
 <a name="rule-fields"></a>
 ### Rule Fields 
 
-| Name            | Type              | R/O | Description |
-| ---             | ---               | --- | --- |
-| `name`          | String            | R   | Name of rule item |
-| `rule_type`     | enum              | R   | Type of rule (see [“rule types”](#rule-types))|
-| `rule_units`    | enum              | O   | Measured units of policy (see [“rule units”](#rule-units))|
-| `geographies`   | UUID[]            | R   | List of Geography UUIDs (non-overlapping) specifying the covered geography |
-| `statuses`      | Status[]          | R   | Vehicle `status` to which this rule applies.  See [MDS Agency state diagram](../agency/README.md#vehicle-events). |
-| `vehicle_types` | VehicleType[]     | O   | Applicable vehicle categories, default “all”.  See MDS shared data types document.  (link forthcoming) |
-| `minimum`       | integer           | O   | Minimum value, if applicable (default 0) |
-| `maximum`       | integer           | O   | Maximum value, if applicable (default unlimited) |
-| `start_time`    | time              | O   | Beginning time-of-day (hh:mm) when the rule is in effect (default 00:00) |
-| `end_time`      | time              | O   | Ending time-of-day (hh:mm) when the rule is in effect (default 23:59) |
-| `days`          | day[]             | O   | Days `["sun", "mon", "tue", "wed", "thu", "fri", "sat"]` when the rule is in effect (default all) |
-| `messages`      | { string:string } | O   | Message to rider user, if desired, in various languages, keyed by language tag (see [Messages](#messages))|
-| `value_url `    | URL               | O   | URL to an API endpoint that can provide dynamic information for the measured value (see [Value URL](#value-url)) |
+| Name         | Type     | R/O | Description      |
+| ---          | ---      | --- | ---              |
+| `name`       | String   | R   | Name of cap item |
+| `rule_type`  | enum     | R   | Type of policy (see [“rule types”](#rule-types))|
+| `rule_units` | enum     | O   | Measured units of policy (see [“rule units”](#rule-units))|
+| `geographies`| UUID[]   | R   | List of Geography UUIDs (non-overlapping) specifying the covered geography |
+| `statuses`   | { Status: Vehicle Event[] } | R   | Vehicle `statuses` to which this rule applies. Optionally, you may provide specific `event_type`'s for the rule to apply to as a subset of a given status, providing an empty list defaults to "all".  See [MDS Agency state diagram](https://github.com/CityOfLosAngeles/mobility-data-specification/blob/dev/agency/README.md#vehicle-events). |
+| `vehicle_types` | VehicleType[] | O | Applicable vehicle categories, default “all”.  See MDS shared data types document.  (link forthcoming) |
+| `minimum`    | integer | O | Minimum value, if applicable (default 0) |
+| `maximum`    | integer | O | Maximum value, if applicable (default unlimited) |
+| `start_time` | time    | O | Beginning time-of-day (hh:mm:ss) when the rule is in effect (default 00:00:00) |
+| `end_time`   | time    | O | Ending time-of-day (hh:mm:ss) when the rule is in effect (default 23:59:59) |
+| `days`       | day[]   | O | Days `["sun", "mon", "tue", "wed", "thu", "fri", "sat"]` when the rule is in effect (default all) |
+| `messages`   | { string:string } | O | Message to rider user, if desired, in various languages, keyed by language tag (see [Messages](#messages))|
+| `value_url ` | URL     | O | URL to an API endpoint that can provide dynamic information for the measured value (see [Value URL](#value-url)) |
 
 ### Order of Operations
 
