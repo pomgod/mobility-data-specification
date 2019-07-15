@@ -128,8 +128,8 @@
                 {
                   "items": {
                     "enum": [
-                      "register",
                       "default",
+                      "register",
                       "provider_pick_up",
                       "agency_drop_off"
                     ],
@@ -336,6 +336,12 @@
             }
           ]
         },
+        "provider_ids": {
+          "items": {
+            "$ref": "#/definitions/UUID"
+          },
+          "type": "array"
+        },
         "rules": {
           "items": {
             "$ref": "#/definitions/Rule"
@@ -349,6 +355,7 @@
       "required": [
         "name",
         "description",
+        "provider_ids",
         "policy_id",
         "start_date",
         "end_date",
@@ -502,8 +509,8 @@
                 {
                   "items": {
                     "enum": [
-                      "register",
                       "default",
+                      "register",
                       "provider_pick_up",
                       "agency_drop_off"
                     ],
@@ -796,8 +803,8 @@
                 {
                   "items": {
                     "enum": [
-                      "register",
                       "default",
+                      "register",
                       "provider_pick_up",
                       "agency_drop_off"
                     ],
