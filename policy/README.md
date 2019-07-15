@@ -2,9 +2,6 @@
 
 This specification contains a collection of RESTful APIs used to specify the digital relationship between *mobility as a service* Providers and the Agencies that regulate them.
 
-(TODO: generate schema: Max Neil)
-(TODO: preferred pick up / preferred drop off example)
-
 * Authors: LADOT
 * Date: 03 June 2019
 * Version: alpha
@@ -36,7 +33,6 @@ The goal of this specification is to enable Agencies to create, revise, and publ
 
 * City-wide and localized caps (e.g. “Minimum 500 and maximum 3000 scooters within city boundaries”)
 * Exclusion zones (e.g. “No scooters are permitted in this district on weekends”)
-* Incentive zones (TODO Max)
 * Cap allowances (e.g. “Up to 500 additional scooters are permitted near train stations”)
 * Speed-limit restrictions (e.g. “15 mph outside of downtown, 10 mph downtown”)
 * Idle-time and disabled-time limitations (e.g. “5 days idle while rentable, 12 hours idle while unrentable, per device”)
