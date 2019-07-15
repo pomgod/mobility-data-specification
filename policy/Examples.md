@@ -13,6 +13,7 @@
   "name": "Venice Special Operations Zone",
   "description": "LADOT Venice Drop-off/no-fly zones",
   "policy_id": "dd9ace3e-14c8-461b-b5e7-1326505ff176",
+  "provider_ids": null,
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -99,6 +100,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "policy_id": "39a653be-7180-4188-b1a6-cae33c280341",
   "name": "Prohibited Dockless Zones",
   "description": "Prohibited areas for dockless vehicles within the City of Los Angeles for the LADOT Dockless On-Demand Personal Mobility Program",
+  "provider_ids": null,
   "start_date": 1552678594428,
   "end_date": null,
   "prev_policies": null,
@@ -131,10 +133,10 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Bird",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "99f7a469-6e3a-4981-9313-c2f6c0bbd5ce",
+  "provider_ids": ["2411d395-04f2-47c9-ab66-d09e9e3c3251"]
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
-  "provider_ids": ['2411d395-04f2-47c9-ab66-d09e9e3c3251'],
   "rules": [
     {
       "name": "SFV DACs",
@@ -199,6 +201,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Bolt",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "4c1464b6-490e-4540-adbf-de7b98d8f9fd",
+  "provider_ids": ["3291c288-c9c8-42f1-bc3e-8502b077cd7f"]
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -266,6 +269,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Jump",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "221efc03-c3ad-4868-b628-eef93f05e1d6",
+  "provider_ids": ["c20e08cf-8488-46a6-a66c-5d8fb827f7e0"],
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -367,6 +371,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Lime",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "f09ad24a-ad0e-4fb0-8770-4fd24e06eb2c",
+  "provider_ids": "63f13c48-34ff-49d2-aca7-cf6a5b6171c3",
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -434,6 +439,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Lyft",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "284a5199-365e-4b9d-b5d0-842ea7b1d4f7",
+  "provider_ids": ["e714f168-ce56-4b41-81b7-0b6a4bd26128"],
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -501,6 +507,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Sherpa",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "59f25ae6-3ec7-4642-a594-f8d2f6d97362",
+  "provider_ids": ["3c95765d-4da6-41c6-b61e-1954472ec6c9"],
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -568,6 +575,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Spin",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "784bb9d8-ae82-49a2-83f2-fe01c8e1bb7b",
+  "provider_ids": ["70aa475d-1fcd-4504-b69c-2eeb2107f7be"]
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -635,6 +643,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
   "name": "LADOT Mobility Caps: Wheels",
   "description": "Mobility caps as described in the One-Year Permit",
   "policy_id": "65207595-dfdc-4653-bc4c-7cca29f69cb7",
+  "provider_ids": ["b79f8687-526d-4ae6-80bf-89b4c44dc071"]
   "start_date": 1558389669540,
   "end_date": null,
   "prev_policies": null,
@@ -700,7 +709,7 @@ This is a very good example of a case where a `rule` is used for pattern matchin
 }]
 ```
 
-## Misc !FIXME!
+### Idle Time Example
 
 Idle time limits example. Scooters and bikes can be in the public right-of-way for up to three days if rentable, one day if not.
 
@@ -717,7 +726,10 @@ Idle time limits example. Scooters and bikes can be in the public right-of-way f
       "rule_type": "time",
       "rule_units": "hours",
       "geographies": ["b4bcc213-4888-48ce-a33d-4dd6c3384bda"],
-      "statuses": ["available", "reserved"],
+      "statuses": {
+        "available": [],
+        "reserved": []
+      },
       "vehicle_types": ["bicycle", "scooter"],
       "maximum": 72
   }, {
@@ -731,6 +743,8 @@ Idle time limits example. Scooters and bikes can be in the public right-of-way f
   }]
 }
 ```
+
+### Speed Limits Example
 
 Speed limits example. Fifteen MPH in greater LA, 10 MPH on Venice Beach on Saturday/Sunday from noon til midnight.
 
@@ -747,7 +761,9 @@ Speed limits example. Fifteen MPH in greater LA, 10 MPH on Venice Beach on Satur
       "rule_type": "speed",
       "rule_units": "mph"
       "geographies": ["b4bcc213-4888-48ce-a33d-4dd6c3384bda"],
-      "states": ["trip"],
+      "statuses": {
+        "trip": []
+      },
       "vehicle_types": ["bicycle", "scooter"],
       "maximum": 15
   }, {
@@ -755,7 +771,9 @@ Speed limits example. Fifteen MPH in greater LA, 10 MPH on Venice Beach on Satur
       "rule_type": "speed",
       "rule_units": "mph",
       "geographies": ["ec551174-f324-4251-bfed-28d9f3f473fc"],
-      "states": ["trip"],
+      "statuses": {
+        "trip": []
+      },
       "vehicle_types": ["bicycle", "scooter"],
       "days": ["sat", "sun"],
       "start_time": "12:00",
@@ -766,35 +784,5 @@ Speed limits example. Fifteen MPH in greater LA, 10 MPH on Venice Beach on Satur
           "es-US": "¡Recuerda permanecer menos de 10 millas por hora en Venice Beach los fines de semana!"
       },
   }]
-}
-```
-
-Parking example combining place and time. Maximum 300 vehicles; each can stay up to 48 hours.
-
-```
-{
-    "policy_id": "283dc770-7d59-4880-844a-307681d7542f",
-    "name": "Parking",
-    "description": "West 34th Street Parking",
-    "start_date": 1552678594428,
-    "end_date": null,
-    "prev_policies": null,
-    "rules": [{
-      "name": "West 34th Street Parking Time Limit",
-      "rule_type": "time",
-      "rule_units": "hours",
-      "geographies": ["f3637b37-ee80-46e2-b01f-3a7f7f819dd9"],
-      "statuses": ["available", "trip"],
-      "vehicle_types": ["bicycle", "scooter"],
-      "maximum": 48
-    }, {
-      "name": "West 34th Street Parking Capacity",
-      "rule_type": "count",
-      "geographies": ["f3637b37-ee80-46e2-b01f-3a7f7f819dd9"],
-      "statuses": ["available", "trip"],
-      "vehicle_types": ["bicycle", "scooter"],
-      "maximum": 300
-    }]
-  }
 }
 ```
