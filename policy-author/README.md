@@ -20,11 +20,12 @@ Payload: a new Policy object
 Returns: the Policy object on success, a failure explanation on failure
 
 Response codes:
-201 - created
-400 - Policy does not conform to schema
-401 - unauthorized (if any auth issue)
-409 - conflict (if exists)
-500 - server error (hopefully doesn’t happen)
+
+- 201 - created
+- 400 - Policy does not conform to schema
+- 401 - unauthorized (if any auth issue)
+- 409 - conflict (if exists)
+- 500 - server error (hopefully doesn’t happen)
 
 ### PUT /policies/{id}
 
@@ -35,23 +36,25 @@ Payload: a new Policy object
 Returns: the Policy object on success, a failure explanation on failure
 
 Response codes:
-200 - success
-400 - Policy does not conform to schema
-401 - unauthorized
-404 - not found
-409 - conflict (if immutable)
-500 - server error
+
+- 200 - success
+- 400 - Policy does not conform to schema
+- 401 - unauthorized
+- 404 - not found
+- 409 - conflict (if immutable)
+- 500 - server error
 
 ### POST /policies/{id}/publish
 
 Publish (make immutable) a Policy. Must be unpublished.
 
 Response codes:
-200 - success
-401 - unauthorized
-404 - not found
-409 - conflict (if already published)
-500 - server error
+
+- 200 - success
+- 401 - unauthorized
+- 404 - not found
+- 409 - conflict (if already published)
+- 500 - server error
 
 ### GET /policies/meta
 
@@ -97,11 +100,12 @@ Payload: a new Geography object
 Returns: the Geography object on success, a failure explanation on failure
 
 Response codes:
-201 - created
-400 - Geography is not conformant GeoJSON
-401 - unauthorized (if any auth issue)
-409 - conflict (if exists)
-500 - server error (hopefully doesn’t happen)
+
+- 201 - created
+- 400 - Geography is not conformant GeoJSON
+- 401 - unauthorized (if any auth issue)
+- 409 - conflict (if exists)
+- 500 - server error (hopefully doesn’t happen)
 
 ### PUT /geographies/{id}
 
@@ -112,11 +116,12 @@ Payload: an updated Geography object
 Returns: the Geography object on success, a failure explanation on failure
 
 Response codes:
-200 - success
-400 - Geography does not conform to schema
-401 - unauthorized
-404 - not found
-409 - conflict (if unwritable)
-500 - server error
+
+- 200 - success
+- 400 - Geography does not conform to schema
+- 401 - unauthorized
+- 404 - not found
+- 409 - conflict (if unwritable)
+- 500 - server error
 
 Note that there is no equivalent /publish endpoint for Geography objects. Implementations should treat Geography objects as writable until they are referenced in a published Policy, and unwritable after. Any implementation of a Policy editor UI should keep track of the writability of any referenced Geography object and potentially alert the user.
