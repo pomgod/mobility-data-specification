@@ -66,11 +66,11 @@ Response codes:
 
 Get a list of policy metadata. Search parameters TBD.
 
-### GET /policies/meta/{id}
+### GET /policies/{id}/meta
 
 Get metadata for a specific policy.
 
-### PUT /policies/meta/{id}
+### PUT /policies/{id}/meta
 
 Create/Update
 
