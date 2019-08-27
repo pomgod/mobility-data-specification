@@ -9,22 +9,28 @@ The Policy API specifies a pair of endpoints and a JSON schema for communicating
 ## Endpoints
 
 The agency-facing Policy Author API consists of the following endpoints. The endpoints to list Policy and Geography objects are defined in the Policy API. The only addition is that when calling the GET /policies endpoint, append ?unpublished to get the unpublished ones, separate from the published ones. Adding ?unpublished will have no effect if your access token has a provider_id.
-Policy Endpoints
+
+### Policy Endpoints
+
+#### Schema
+
+See Policy API.
+
+Metadata is free-form JSON format.
 
 ### POST /policies
 
 Create a new unpublished (mutable) Policy
 
-Payload: a new Policy object
+Payload: a new Policy object, without a `policy_id`
 
-Returns: the Policy object on success, a failure explanation on failure
+Returns: the Policy object on success, including a `policy_id`; a failure explanation on failure
 
 Response codes:
 
 - 201 - created
 - 400 - Policy does not conform to schema
 - 401 - unauthorized (if any auth issue)
-- 409 - conflict (if exists)
 - 500 - server error (hopefully doesn’t happen)
 
 ### PUT /policies/{id}
@@ -67,9 +73,14 @@ Get metadata for a specific policy.
 ### PUT /policies/meta/{id}
 
 Create/Update
-Geography Endpoints
-Schema
-Simple key/value store.
+
+### Geography Endpoints
+
+#### Schema
+
+Geographies are GeoJSON.
+
+Metadata is free-form JSON format.
 
 ### GET /geographies/meta
 
