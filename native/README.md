@@ -32,7 +32,7 @@ This endpoint shall be called to retrieve the canonical list of providers from M
 
 #### Response Body
 
-The response body contains the following properties:
+The response body is a JSON object with the following properties:
 
 | Property  | Description                                                |
 | --------- | ---------------------------------------------------------- |
@@ -69,7 +69,7 @@ This endpoint shall be called to retrieve an initial set of vehicle events from 
 
 #### Response Body
 
-The response body contains the following properties:
+The response body is a JSON object with the following properties:
 
 | Property | Description                                                                                                                                                          |
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,7 +111,7 @@ This endpoint shall be called to retrieve the next set of vehicle events from MD
 
 #### Response Body
 
-The response body contains the following properties:
+The response body is a JSON object with the following properties:
 
 | Property | Description                                                                                                                                                          |
 | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -147,7 +147,7 @@ This endpoint shall be called to retrieve information about a specific device fr
 
 #### Response Body
 
-The response body contains the following properties:
+The response body is a JSON object with the following properties:
 
 | Property | Description                                                |
 | -------- | ---------------------------------------------------------- |
