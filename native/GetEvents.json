@@ -1,0 +1,157 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+      "cursor": {
+        "type": "string"
+      },
+      "events": {
+        "items": {
+          "properties": {
+            "delta": {
+              "type": ["null", "number"]
+            },
+            "device_id": {
+              "examples": ["3c9604d6-b5ee-11e8-96f8-529269fb1459"],
+              "format": "uuid",
+              "pattern": "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$",
+              "type": "string"
+            },
+            "event_type": {
+              "enum": [
+                "agency_drop_off",
+                "agency_pick_up",
+                "cancel_reservation",
+                "deregister",
+                "provider_drop_off",
+                "provider_pick_up",
+                "register",
+                "reserve",
+                "service_end",
+                "service_start",
+                "trip_end",
+                "trip_enter",
+                "trip_leave",
+                "trip_start"
+              ],
+              "type": "string"
+            },
+            "event_type_reason": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "battery_charged",
+                    "charge",
+                    "compliance",
+                    "decommissioned",
+                    "low_battery",
+                    "maintenance",
+                    "missing",
+                    "off_hours",
+                    "rebalance"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "id": {
+              "type": "number"
+            },
+            "provider_id": {
+              "examples": ["3c9604d6-b5ee-11e8-96f8-529269fb1459"],
+              "format": "uuid",
+              "pattern": "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$",
+              "type": "string"
+            },
+            "recorded": {
+              "type": "number"
+            },
+            "telemetry": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "charge": {
+                      "type": ["null", "number"]
+                    },
+                    "device_id": {
+                      "examples": ["3c9604d6-b5ee-11e8-96f8-529269fb1459"],
+                      "format": "uuid",
+                      "pattern": "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$",
+                      "type": "string"
+                    },
+                    "gps": {
+                      "description": "Construct a type with the properties of T except for those in type K.",
+                      "properties": {
+                        "accuracy": {
+                          "type": ["null", "number"]
+                        },
+                        "altitude": {
+                          "type": ["null", "number"]
+                        },
+                        "hdop": {
+                          "type": ["null", "number"]
+                        },
+                        "heading": {
+                          "type": ["null", "number"]
+                        },
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lng": {
+                          "type": "number"
+                        },
+                        "satellites": {
+                          "type": ["null", "number"]
+                        },
+                        "speed": {
+                          "type": ["null", "number"]
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "provider_id": {
+                      "examples": ["3c9604d6-b5ee-11e8-96f8-529269fb1459"],
+                      "format": "uuid",
+                      "pattern": "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$",
+                      "type": "string"
+                    },
+                    "recorded": {
+                      "type": "number"
+                    },
+                    "timestamp": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "telemetry_timestamp": {
+              "type": ["null", "number"]
+            },
+            "timestamp": {
+              "type": "number"
+            },
+            "timestamp_long": {
+              "type": ["null", "string"]
+            },
+            "trip_id": {
+              "type": ["null", "string"]
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "version": {
+        "enum": ["0.1.0"],
+        "type": "string"
+      }
+    },
+    "type": "object"
+  }

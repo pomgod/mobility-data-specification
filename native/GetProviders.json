@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+      "providers": {
+        "items": {
+          "properties": {
+            "gbfs_api_url": {
+              "type": "string"
+            },
+            "mds_api_url": {
+              "type": "string"
+            },
+            "provider_id": {
+              "examples": ["3c9604d6-b5ee-11e8-96f8-529269fb1459"],
+              "format": "uuid",
+              "pattern": "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$",
+              "type": "string"
+            },
+            "provider_name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "version": {
+        "enum": ["0.1.0"],
+        "type": "string"
+      }
+    },
+    "type": "object"
+  }
